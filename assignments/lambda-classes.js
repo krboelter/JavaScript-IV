@@ -1,149 +1,111 @@
 // CODE here for your Lambda Classes
-class GameObject {
-  constructor(attributes) {
-    this.createdAt = attributes.createdAt;
-    this.name = attributes.name;
-    this.dimensions = this.dimensions;
+class Person {
+  constructor(attribute) {
+    this.name = attribute.name;
+    this.age = attribute.age;
+    this.location = attribute.location;
   }
 
-  destroy() {
-    return `${this.name} was removed from the game`;
-  }
-}
-
-class CharacterStats extends GameObject {
-  constructor(stats) {
-    super(stats);
-    this.healthPoints = stats.healthPoints;
-  }
-
-  takeDamage() {
-    console.log(`${this.name} took damage.`);
+  speak() {
+    return `Hello, my name is ${this.name}, I am from ${this.location}`;
   }
 }
 
-class Humanoid extends CharacterStats {
-  constructor(hum) {
-    super(hum);
-    this.team = hum.team;
-    this.weapons = hum.weapons;
-    this.language = hum.language;
+class Instructor extends Person {
+  constructor(attribute) {
+    super(attribute);
+    this.specialty = attribute.specialty;
+    this.favLanguage = attribute.favLanguage;
+    this.catchPhrase = attribute.catchPhrase;
   }
 
-  greet() {
-    return `${this.name} offers a greeting in ${this.language}`;
-  }
-}
-
-class Hero extends Humanoid {
-  constructor(heroAtt) {
-    super(heroAtt);
+  demo(subject) {
+    return `Today we are learning about ${subject}`;
   }
 
-  shieldBash() {
-    redSkull.healthPoints -= 5;
+  grade(student, subject) {
+    return `${student.name} receives a perfect score on ${subject}`;
   }
 }
 
-class Villan extends Humanoid {
-  constructor(villAtt) {
-    super(villAtt);
+class Student extends Person {
+  constructor(attribute) {
+    super(attribute);
+    this.previousBackground = attribute.previousBackground;
+    this.className = attribute.className;
+    this.favSubjects = attribute.favSubjects;
+  }
+
+  listSubjects() {
+    for (let i = 0; i < this.favSubjects.length; i++){
+      console.log(this.favSubjects[i]);
+    }
+  }
+
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}`;
   }
 }
 
-const mage = new Humanoid({
-  createdAt: '2019, 7, 9',
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  healthPoints: 5,
-  name: 'Bruce',
-  team: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Tongue',
+class ProjectManager extends Instructor{
+  constructor(attribute){
+    super(attribute);
+    this.gradClassName = attribute.gradClassName;
+    this.favInstructor = attribute.favInstructor;
+  }
+
+  standUp(slackChannel) {
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  }
+
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
+}
+
+
+const Kieran = new Instructor ({
+  name: 'Kieran',
+  age: 28,
+  location: 'Utah',
+  specialty: 'redux',
+  favLanguage: 'Python',
+  catchPhrase: 'Do your homework!'
 });
 
-const swordsman = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 2,
-    height: 2,
-  },
-  healthPoints: 15,
-  name: 'Sir Mustachio',
-  team: 'The Round Table',
-  weapons: [
-    'Giant Sword',
-    'Shield',
-  ],
-  language: 'Common Tongue',
+const Ken = new Student ({
+  name: 'Ken',
+  age: 25,
+  location: 'Utah',
+  previousBackground: 'Construction Management',
+  className: 'webpt8',
+  favSubjects: [
+    'JavaScript',
+    'Python',
+    'HTML',
+    'CSS'
+  ]
 });
 
-const archer = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 2,
-    height: 4,
-  },
-  healthPoints: 10,
-  name: 'Lilith',
-  team: 'Forest Kingdom',
-  weapons: [
-    'Bow',
-    'Dagger',
-  ],
-  language: 'Elvish',
+const Billy = new ProjectManager ({
+  name: 'Billy',
+  age: 33,
+  location: 'Arizona',
+  gradClassName: 'webpt6',
+  favInstructor: 'Hailey',
 });
 
-const cptAmerica = new Hero({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 2,
-    height: 6,
-  },
-  healthPoints: 15,
-  name: 'Captain America',
-  team: 'America',
-  weapons: [
-    'shield',
-    'Super Strength Drugs',
-  ],
-  language: 'English'
-});
 
-const redSkull = new Villan({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 1.5,
-    height: 5,
-  },
-  healthPoints: 5,
-  name: 'Red Skull',
-  team: 'Hydra',
-  weapons: [
-    'gun'
-  ],
-  language: 'German'
-});
-
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.healthPoints); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.team); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-console.log(redSkull.greet());
-console.log(cptAmerica.shieldBash());
-console.log(redSkull.healthPoints);
+console.log(Ken.speak());
+console.log(Ken.PRAssignment("Python"));
+console.log(Ken.sprintChallenge("Python"));
+console.log(Ken.favSubjects);
+Ken.listSubjects();
+console.log(Billy.debugsCode(Ken));
+console.log(Billy.standUp("webpt8"));
+console.log(Kieran.demo("Node.js"));
+console.log(Kieran.grade(Ken, "Python"));
